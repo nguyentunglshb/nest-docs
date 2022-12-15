@@ -7,7 +7,12 @@ import {
   // Put,
   Param,
   Delete,
+  HttpException,
+  HttpStatus,
+  UseFilters,
+  ForbiddenException,
 } from '@nestjs/common';
+import { HttpExceptionFilter } from 'src/http-exception.filter';
 import { CatsService } from './cats.service';
 import {
   CreateCatDto,
@@ -16,17 +21,19 @@ import {
 import { Cat } from './interfaces/cat.interface';
 
 @Controller('cats')
+// @UseFilters(new HttpExceptionFilter())
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
   @Post()
   async create(@Body() createCatDto: CreateCatDto) {
-    this.catsService.create(createCatDto);
+    await this.catsService.create(createCatDto);
   }
 
   @Get()
   async findAll(): Promise<Cat[]> {
-    return this.catsService.findAll();
+    const cats = await this.catsService.findAll();
+    return cats;
   }
 
   @Get(':id')
