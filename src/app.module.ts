@@ -1,24 +1,29 @@
+import { UsersModule } from './users/users.module';
+import { ErrorsInterceptor } from './common/interceptors/errors.interceptor';
 import {
   MiddlewareConsumer,
   Module,
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import helmet from 'helmet';
 import { CatsController } from './cats/cats.controller';
 import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './common/middleware/logger.midleware';
-import { HttpExceptionFilter } from './http-exception.filter';
 
 @Module({
-  imports: [CatsModule],
-  // providers: [
-  //   {
-  //     provide: APP_FILTER,
-  //     useClass: HttpExceptionFilter,
-  //   },
-  // ],
+  imports: [CatsModule, UsersModule],
+  providers: [
+    // {
+    //   provide: APP_FILTER,
+    //   useClass: HttpExceptionFilter,
+    // },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ErrorsInterceptor,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

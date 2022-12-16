@@ -7,12 +7,20 @@ import {
   // Put,
   Param,
   Delete,
-  HttpException,
-  HttpStatus,
-  UseFilters,
-  ForbiddenException,
+  // HttpException,
+  // HttpStatus,
+  // UseFilters,
+  // ForbiddenException,
+  ParseIntPipe,
+  UseGuards,
+  UseInterceptors,
+  // Query,
 } from '@nestjs/common';
-import { HttpExceptionFilter } from 'src/http-exception.filter';
+import { Roles } from 'src/common/decorators/roles.decorator';
+import { Role } from 'src/common/entities/roles.enum';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
+// import { HttpExceptionFilter } from 'src/http-exception.filter';
 import { CatsService } from './cats.service';
 import {
   CreateCatDto,
@@ -21,11 +29,14 @@ import {
 import { Cat } from './interfaces/cat.interface';
 
 @Controller('cats')
+@UseGuards(RolesGuard)
+@UseInterceptors(TransformInterceptor)
 // @UseFilters(new HttpExceptionFilter())
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
   @Post()
+  @Roles(Role.ADMIN)
   async create(@Body() createCatDto: CreateCatDto) {
     await this.catsService.create(createCatDto);
   }
@@ -37,8 +48,8 @@ export class CatsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return `This action returns a #${id} cat`;
+  async findOne(@Param('id', new ParseIntPipe()) id: number) {
+    return this.catsService.findOne(id);
   }
 
   // @Put(':id')
