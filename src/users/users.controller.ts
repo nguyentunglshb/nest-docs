@@ -1,13 +1,12 @@
 import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import { ParseIntPipe } from './../common/pipes/parse-int.pipe';
 import {
-  // Body,
-  // Body,
+  Body,
   Controller,
   Delete,
   Get,
   Param,
-  // Post,
+  Post,
   UseGuards,
   // Post,
   UseInterceptors,
@@ -15,16 +14,12 @@ import {
 import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
 // import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('users')
 @UseInterceptors(TransformInterceptor)
 export class UsersController {
   constructor(private usersService: UsersService) {}
-
-  // @Post()
-  // async create(@Body() createUserDto: CreateUserDto) {
-  //   await this.usersService.create(createUserDto);
-  // }
 
   @Get()
   async findAll() {
@@ -32,19 +27,19 @@ export class UsersController {
     return users;
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get(':userId')
-  async findById(@Param('userId', new ParseIntPipe()) userId: number) {
-    return this.usersService.findById(userId);
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Get(':userId')
+  // async findById(@Param('userId', new ParseIntPipe()) userId: number) {
+  //   return this.usersService.findById(userId);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: number) {
     return `This action removes a ${id} user`;
   }
 
-  // @Post()
-  // create(@Body() body) {
-  //   return this.usersService.signUp(body);
-  // }
+  @Post()
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.signUp(createUserDto);
+  }
 }
