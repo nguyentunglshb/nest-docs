@@ -1,9 +1,12 @@
-import { Role } from 'src/common/entities/roles.enum';
+// import { Role } from 'src/common/entities/roles.enum';
 
 export interface User {
-  id?: number;
-  firstName?: string;
-  lastName: string;
-  email: string;
-  roles: Role[];
+  // id?: number;
+  // firstName?: string;
+  // lastName: string;
+  // email: string;
+  // roles: Role[];
+  userId: number;
+  username: string;
+  password: string;
 }

@@ -11,9 +11,10 @@ import helmet from 'helmet';
 import { CatsController } from './cats/cats.controller';
 import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './common/middleware/logger.midleware';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [CatsModule, UsersModule],
+  imports: [CatsModule, UsersModule, AuthModule],
   providers: [
     // {
     //   provide: APP_FILTER,
