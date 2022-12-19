@@ -24,4 +24,8 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+  // async signup(body) {
+  //   return this.usersService.signUp(body);
+  // }
 }

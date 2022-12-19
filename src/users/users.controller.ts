@@ -1,10 +1,14 @@
+import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import { ParseIntPipe } from './../common/pipes/parse-int.pipe';
 import {
+  // Body,
   // Body,
   Controller,
   Delete,
   Get,
   Param,
+  // Post,
+  UseGuards,
   // Post,
   UseInterceptors,
 } from '@nestjs/common';
@@ -28,7 +32,8 @@ export class UsersController {
     return users;
   }
 
-  @Get(':id')
+  @UseGuards(JwtAuthGuard)
+  @Get(':userId')
   async findById(@Param('userId', new ParseIntPipe()) userId: number) {
     return this.usersService.findById(userId);
   }
@@ -37,4 +42,9 @@ export class UsersController {
   remove(@Param('id') id: number) {
     return `This action removes a ${id} user`;
   }
+
+  // @Post()
+  // create(@Body() body) {
+  //   return this.usersService.signUp(body);
+  // }
 }

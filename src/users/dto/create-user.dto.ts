@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 // import { Role } from 'src/common/entities/roles.enum';
 
 export class CreateUserDto {
@@ -14,8 +14,8 @@ export class CreateUserDto {
   // @IsArray()
   // roles: Role[];
 
-  @IsNumber()
-  userId: number;
+  // @IsNumber()
+  // userId?: number;
 
   @IsString()
   username: string;
