@@ -25,7 +25,7 @@ export class AuthService {
     };
   }
 
-  // async signup(body) {
+  // async signUp(body) {
   //   return this.usersService.signUp(body);
   // }
 }

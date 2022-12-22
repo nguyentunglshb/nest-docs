@@ -1,5 +1,4 @@
 import { JwtAuthGuard } from './../auth/jwt-auth.guard';
-import { ParseIntPipe } from './../common/pipes/parse-int.pipe';
 import {
   Body,
   Controller,
@@ -28,10 +27,10 @@ export class UsersController {
   }
 
   // @UseGuards(JwtAuthGuard)
-  // @Get(':userId')
-  // async findById(@Param('userId', new ParseIntPipe()) userId: number) {
-  //   return this.usersService.findById(userId);
-  // }
+  @Get(':_id')
+  async findById(@Param('_id') _id: string) {
+    return this.usersService.findById(_id);
+  }
 
   @Delete(':id')
   remove(@Param('id') id: number) {
