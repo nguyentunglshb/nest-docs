@@ -1,3 +1,4 @@
+import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { Injectable } from '@nestjs/common';
 
@@ -42,5 +43,11 @@ export class UsersService {
     });
 
     return await newUser.save();
+  }
+
+  async updateUser(_id: string, updateUserDto: UpdateUserDto) {
+    await this.userModel.findByIdAndUpdate(_id, updateUserDto);
+
+    return 'update successfully';
   }
 }

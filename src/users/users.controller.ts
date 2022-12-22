@@ -1,3 +1,4 @@
+import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from './../auth/jwt-auth.guard';
 import {
   Body,
@@ -35,6 +36,11 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: number) {
     return `This action removes a ${id} user`;
+  }
+
+  @Post(':_id')
+  update(@Param('_id') _id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.updateUser(_id, updateUserDto);
   }
 
   @Post()
