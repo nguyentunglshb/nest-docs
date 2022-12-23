@@ -13,11 +13,11 @@ export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async findAll(): Promise<User[]> {
-    return this.userModel.find();
+    return await this.userModel.find();
   }
 
   async findById(_id: string) {
-    return this.userModel.findOne({ _id });
+    return await this.userModel.findOne({ _id });
   }
 
   async findOne(username: string) {
@@ -39,6 +39,7 @@ export class UsersService {
 
     const newUser = new this.userModel({
       ...createUserDto,
+      createdAt: new Date(),
       status: EnumUserStatus.ACTIVE,
     });
 
@@ -47,7 +48,13 @@ export class UsersService {
 
   async updateUser(_id: string, updateUserDto: UpdateUserDto) {
     await this.userModel.findByIdAndUpdate(_id, updateUserDto);
-
     return 'update successfully';
+  }
+
+  async uploadAvatar(_id: string, avatarUrl: string) {
+    await this.userModel.findByIdAndUpdate(_id, {
+      avatarUrl,
+    });
+    return 'upload avatar successfully';
   }
 }

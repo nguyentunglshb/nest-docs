@@ -10,19 +10,22 @@ import { ConfigModule } from '@nestjs/config';
 import helmet from 'helmet';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { UsersModule } from './users/users.module';
 import { ErrorsInterceptor } from './common/interceptors/errors.interceptor';
 import { CatsController } from './cats/cats.controller';
-import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './common/middleware/logger.midleware';
-import { AuthModule } from './auth/auth.module';
 import configuration from './config/configuration';
+import { CatsModule } from './cats/cats.module';
+import { AuthModule } from './auth/auth.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { UsersModule } from './users/users.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
     CatsModule,
     UsersModule,
     AuthModule,
+    CloudinaryModule,
     ConfigModule.forRoot({
       envFilePath: '.env',
       load: [configuration],
@@ -30,6 +33,7 @@ import configuration from './config/configuration';
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@ainest.9qfhkxr.mongodb.net/?retryWrites=true&w=majority`,
     ),
+    ProductsModule,
   ],
   providers: [
     // {

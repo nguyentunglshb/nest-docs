@@ -13,13 +13,16 @@ export class User {
   password: string;
 
   @Prop({
+    default: '',
+  })
+  avatarUrl: string;
+
+  @Prop({
     default: EnumUserStatus.ACTIVE,
   })
   status: string;
 
-  @Prop({
-    default: new Date(),
-  })
+  @Prop()
   createdAt: string;
 }
 
