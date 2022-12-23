@@ -17,6 +17,10 @@ export class ProductsService {
     return await this.productModel.find();
   }
 
+  async getById(_id: string) {
+    return await this.productModel.findOne({ _id });
+  }
+
   async create(
     createProductDto: CreateProductDto,
     files: {

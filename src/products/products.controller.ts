@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   UploadedFiles,
   UseInterceptors,
@@ -19,6 +20,11 @@ export class ProductsController {
   @Get()
   getAll() {
     return this.productsService.getAll();
+  }
+
+  @Get(':_id')
+  findById(@Param('_id') _id: string) {
+    return this.productsService.getById(_id);
   }
 
   // @Post()
