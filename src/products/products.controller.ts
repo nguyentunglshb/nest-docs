@@ -34,7 +34,7 @@ export class ProductsController {
   //   return this.productsService.create(createProductDto);
   // }
 
-  @Post('upload')
+  @Post()
   @UseInterceptors(
     FileFieldsInterceptor([
       {

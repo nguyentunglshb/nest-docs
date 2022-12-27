@@ -3,10 +3,10 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class OtherService {
-  constructor(private cloudinaty: CloudinaryService) {}
+  constructor(private cloudinary: CloudinaryService) {}
 
   async uploadImageToCloudinary(file: Express.Multer.File) {
-    return await this.cloudinaty
+    return await this.cloudinary
       .uploadImage(file)
       .then((result) => result.url)
       .catch(() => {
@@ -25,22 +25,29 @@ export class OtherService {
       headImageUrl: [],
       imageUrls: [],
     };
-    for (const file of headImage) {
-      await this.cloudinaty
-        .uploadImage(file)
-        .then((result) => imageUrls.headImageUrl.push(result.url))
-        .catch(() => {
-          throw new BadRequestException('Invalid file type');
-        });
+
+    if (headImage && headImage.length) {
+      for (const file of headImage) {
+        await this.cloudinary
+          .uploadImage(file)
+          .then((result) => imageUrls.headImageUrl.push(result.url))
+          .catch(() => {
+            throw new BadRequestException('Invalid file type');
+          });
+      }
     }
-    for (const file of images) {
-      await this.cloudinaty
-        .uploadImage(file)
-        .then((result) => imageUrls.imageUrls.push(result.url))
-        .catch(() => {
-          throw new BadRequestException('Invalid file type');
-        });
+
+    if (images && images.length) {
+      for (const file of images) {
+        await this.cloudinary
+          .uploadImage(file)
+          .then((result) => imageUrls.imageUrls.push(result.url))
+          .catch(() => {
+            throw new BadRequestException('Invalid file type');
+          });
+      }
     }
+
     return imageUrls;
   }
 }

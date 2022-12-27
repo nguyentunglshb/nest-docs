@@ -2,6 +2,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+
 import { Product, ProductDocument } from './schema/product.schema';
 import { OtherService } from 'src/other/other.service';
 import { EnumProductStatus } from './interface/product.interface';

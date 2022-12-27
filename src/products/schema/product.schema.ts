@@ -9,7 +9,9 @@ export type ProductDocument = HydratedDocument<Product>;
 
 @Schema()
 export class Product {
-  @Prop()
+  @Prop({
+    required: true,
+  })
   name: string;
 
   @Prop({
@@ -25,19 +27,34 @@ export class Product {
   })
   headImageUrl: string;
 
-  @Prop()
+  @Prop({
+    required: false,
+    default: [],
+  })
   imageUrls: string[];
 
-  @Prop()
+  @Prop({
+    required: false,
+    default: '',
+  })
   description: string;
 
-  @Prop()
+  @Prop({
+    required: false,
+    default: '',
+  })
   content: string;
 
-  @Prop()
+  @Prop({
+    required: false,
+    default: '',
+  })
   originPrice: number;
 
-  @Prop()
+  @Prop({
+    required: false,
+    default: '',
+  })
   currentPrice: number;
 
   @Prop({
@@ -45,7 +62,10 @@ export class Product {
   })
   currency: EnumCurrency;
 
-  @Prop()
+  @Prop({
+    required: false,
+    default: [],
+  })
   tags: string[];
 }
 
