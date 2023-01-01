@@ -19,6 +19,7 @@ import { AuthModule } from './auth/auth.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
+import { BlogsModule } from './blogs/blogs.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { ProductsModule } from './products/products.module';
       `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@ainest.9qfhkxr.mongodb.net/?retryWrites=true&w=majority`,
     ),
     ProductsModule,
+    BlogsModule,
   ],
   providers: [
     // {
