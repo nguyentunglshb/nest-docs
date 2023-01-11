@@ -20,6 +20,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
 import { BlogsModule } from './blogs/blogs.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { BlogsModule } from './blogs/blogs.module';
     ),
     ProductsModule,
     BlogsModule,
+    CartModule,
   ],
   providers: [
     // {

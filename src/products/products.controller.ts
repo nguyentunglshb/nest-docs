@@ -8,6 +8,7 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
+
 import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
 import { CreateProductDto } from './dto/create-product.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
