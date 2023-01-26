@@ -53,4 +53,8 @@ export class ProductsService {
       message: 'product created successfully',
     };
   }
+
+  async delete(_id: string) {
+    return await this.productModel.findByIdAndDelete({ _id });
+  }
 }

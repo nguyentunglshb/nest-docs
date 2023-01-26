@@ -2,6 +2,7 @@ import { ProductsService } from './products.service';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -56,5 +57,10 @@ export class ProductsController {
     @Body() createProductDto: CreateProductDto,
   ) {
     return this.productsService.create(createProductDto, files);
+  }
+
+  @Delete(':_id')
+  delete(@Param('_id') _id: string) {
+    return this.productsService.delete(_id);
   }
 }
