@@ -10,7 +10,8 @@ import {
   Post,
   Put,
   UploadedFile,
-  // UseGuards,
+  UseGuards,
+  Request,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -18,6 +19,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('users')
 @UseInterceptors(TransformInterceptor)
@@ -34,9 +36,15 @@ export class UsersController {
   }
 
   // @UseGuards(JwtAuthGuard)
-  @Get(':_id')
-  findById(@Param('_id') _id: string) {
-    return this.usersService.findById(_id);
+  // @Get(':_id')
+  // findById(@Param('_id') _id: string) {
+  //   return this.usersService.findById(_id);
+  // }
+
+  @Get('info')
+  @UseGuards(JwtAuthGuard)
+  getUserInfo(@Request() req) {
+    return this.usersService.getUserInfo(req.user.userId);
   }
 
   @Delete(':id')

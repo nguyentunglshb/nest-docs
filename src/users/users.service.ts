@@ -26,6 +26,10 @@ export class UsersService {
     });
   }
 
+  async getUserInfo(_id: string) {
+    return this.findById(_id);
+  }
+
   async signUp(createUserDto: CreateUserDto) {
     const { username } = createUserDto;
     const user = await this.userModel.findOne({
