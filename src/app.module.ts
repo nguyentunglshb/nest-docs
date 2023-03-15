@@ -21,6 +21,7 @@ import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
 import { BlogsModule } from './blogs/blogs.module';
 import { CartModule } from './cart/cart.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { CartModule } from './cart/cart.module';
     ProductsModule,
     BlogsModule,
     CartModule,
+    OrderModule,
   ],
   providers: [
     // {

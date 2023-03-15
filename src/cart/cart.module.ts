@@ -14,6 +14,7 @@ import { Cart, CartSchema } from './schema/cart.schema';
       },
     ]),
   ],
+  exports: [CartService],
   providers: [CartService],
   controllers: [CartController],
 })
