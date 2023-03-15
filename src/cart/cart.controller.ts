@@ -26,8 +26,6 @@ export class CartController {
 
   @Post()
   async addToCart(@Request() req, @Body() itemDto: ItemDto) {
-    console.log(req.user, req.user.userId);
-
     const userId = req.user.userId;
     const cart = await this.cartService.addToCart(userId, itemDto);
     return cart;
