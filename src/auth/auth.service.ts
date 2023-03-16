@@ -27,7 +27,9 @@ export class AuthService {
       user: {
         avatarUrl: user.avatarUrl,
       },
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload, {
+        expiresIn: '2days',
+      }),
     };
   }
 

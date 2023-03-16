@@ -25,7 +25,12 @@ export class OrderService {
     const currentCart = await this.cartService.getUserCart(userId);
 
     currentCart.items.splice(0, currentCart.items.length);
+    currentCart.totalPrice = 0;
 
-    return [await newOrder.save(), await currentCart.save()];
+    await currentCart.save();
+
+    // return createCheckoutDto;
+
+    return await newOrder.save();
   }
 }
