@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Request,
   UseGuards,
@@ -30,5 +32,11 @@ export class OrderController {
       req.user.userId,
       createCheckoutDto,
     );
+  }
+
+  @Delete(':_id')
+  @UseGuards(JwtAuthGuard)
+  deleteOrder(@Param('_id') _id: string) {
+    return this.orderService.deleteOrder(_id);
   }
 }

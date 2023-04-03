@@ -13,23 +13,29 @@ export class OrderService {
   ) {}
 
   async getAllOrder(_id: string) {
-    return 'Get all order ' + _id;
+    return await this.orderModel.find();
+  }
+
+  async deleteOrder(_id: string) {
+    return await this.orderModel.findOneAndRemove({ _id });
   }
 
   async createNewCheckout(
     userId: string,
     createCheckoutDto: CreateCheckoutDto,
   ) {
-    const newOrder = new this.orderModel(createCheckoutDto);
-
     const currentCart = await this.cartService.getUserCart(userId);
+
+    const newOrder = new this.orderModel({
+      ...createCheckoutDto,
+      items: currentCart.items,
+      totalPrice: currentCart.totalPrice,
+    });
 
     currentCart.items.splice(0, currentCart.items.length);
     currentCart.totalPrice = 0;
 
     await currentCart.save();
-
-    // return createCheckoutDto;
 
     return await newOrder.save();
   }

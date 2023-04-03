@@ -29,6 +29,16 @@ export class Order {
     required: true,
   })
   email: string;
+
+  @Prop({
+    required: true,
+  })
+  items: Array<any>;
+
+  @Prop({
+    required: true,
+  })
+  totalPrice: number;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
