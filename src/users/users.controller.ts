@@ -20,13 +20,17 @@ import { TransformInterceptor } from 'src/common/interceptors/transform.intercep
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { User, UserDocument } from './schema/user.schema';
 
 @Controller('users')
-@UseInterceptors(TransformInterceptor)
+// @UseInterceptors(TransformInterceptor)
 export class UsersController {
   constructor(
     private usersService: UsersService,
     private otherService: OtherService,
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
 
   @Get()

@@ -1,6 +1,11 @@
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { Injectable } from '@nestjs/common';
+import {
+  // HttpException,
+  // HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -36,10 +41,10 @@ export class UsersService {
       username,
     });
 
-    if (user)
-      return {
-        message: 'This username has been used',
-      };
+    if (user) {
+      // throw new HttpException('This username exists', HttpStatus.UNAUTHORIZED);
+      throw new UnauthorizedException();
+    }
 
     const newUser = new this.userModel({
       ...createUserDto,
