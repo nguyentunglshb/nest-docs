@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
-    "@nestjs/config": "^2.2.0",
+    "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
     "@nestjs/jwt": "^9.0.0",
     "@nestjs/mongoose": "^9.2.1",
@@ -35,13 +35,15 @@
     "cloudinary": "^1.33.0",
     "helmet": "^6.0.1",
     "joi": "^17.7.0",
+    "moment": "^2.29.4",
     "mongoose": "^6.8.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "qs": "^6.7.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",

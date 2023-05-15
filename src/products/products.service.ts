@@ -19,7 +19,37 @@ export class ProductsService {
   }
 
   async getById(_id: string) {
-    return await this.productModel.findOne({ _id });
+    const targetProduct = await this.productModel.findOne({ _id });
+    targetProduct.views += 1;
+    await targetProduct.save();
+
+    return targetProduct;
+  }
+
+  async buyAndUpdate(_id: string) {
+    const targetProduct = await this.productModel.findOne({ _id });
+    targetProduct.boughts += 1;
+    await targetProduct.save();
+
+    return targetProduct;
+  }
+
+  async getByKeyword(searchTerm: string) {
+    const regex = new RegExp(searchTerm, 'i');
+    return await this.productModel.find({
+      $or: [
+        {
+          name: {
+            $regex: regex,
+          },
+        },
+        {
+          tags: {
+            $in: [searchTerm],
+          },
+        },
+      ],
+    });
   }
 
   async create(
@@ -45,13 +75,11 @@ export class ProductsService {
       status: EnumProductStatus.ACTIVE,
       headImageUrl: headImageUrl.length ? headImageUrl[0] : [],
       imageUrls: imageUrls.length ? imageUrls : [],
+      bought: 0,
+      view: 0,
     });
 
-    await newProduct.save();
-
-    return {
-      message: 'product created successfully',
-    };
+    return await newProduct.save();
   }
 
   async delete(_id: string) {

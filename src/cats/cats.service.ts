@@ -11,6 +11,8 @@ export class CatsService {
   constructor(@InjectModel(Cat.name) private catModel: Model<CatDocument>) {}
 
   async create(createCatDto: CreateCatDto): Promise<Cat> {
+    console.log(createCatDto);
+
     const createCat = new this.catModel(createCatDto);
     return createCat.save();
   }

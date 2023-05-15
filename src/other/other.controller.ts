@@ -18,18 +18,36 @@ export class OtherController {
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
-    return this.otherService.uploadImageToCloudinary(file);
+    return { file };
+    // return this.otherService.uploadImageToCloudinary(file);
   }
 
   @Post('multiple')
   @UseInterceptors(
+    // FileFieldsInterceptor([
+    //   {
+    //     name: 'images',
+    //   },
+    // ]),
     FileFieldsInterceptor([
+      {
+        name: 'headImage',
+        maxCount: 1,
+      },
       {
         name: 'images',
       },
     ]),
   )
-  uploadMultiple(@UploadedFiles() files) {
+  uploadMultiple(
+    @UploadedFiles()
+    files: {
+      headImage?: Express.Multer.File[];
+      images?: Express.Multer.File[];
+    },
+  ) {
+    // console.log(files);
+    // return { files };
     return this.otherService.uploadMutilImagesToCloudinary(files);
   }
 }

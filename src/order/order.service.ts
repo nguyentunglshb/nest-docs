@@ -1,3 +1,4 @@
+import { ProductsService } from 'src/products/products.service';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -10,6 +11,7 @@ export class OrderService {
   constructor(
     @InjectModel(Order.name) private orderModel: Model<OrderDocument>,
     private cartService: CartService,
+    private productService: ProductsService,
   ) {}
 
   async getAllOrder(_id: string) {
@@ -26,6 +28,16 @@ export class OrderService {
   ) {
     const currentCart = await this.cartService.getUserCart(userId);
 
+    const products = currentCart.items;
+
+    const productIds = products.map((prd) => prd.productId);
+
+    const promises = productIds.map(async (_id) => {
+      return this.productService.buyAndUpdate(_id);
+    });
+
+    Promise.all(promises).then(console.log).catch(console.log);
+
     const newOrder = new this.orderModel({
       ...createCheckoutDto,
       items: currentCart.items,
@@ -38,5 +50,11 @@ export class OrderService {
     await currentCart.save();
 
     return await newOrder.save();
+  }
+
+  createPayment(redirectUrl: string) {
+    return {
+      redirectUrl,
+    };
   }
 }

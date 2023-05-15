@@ -18,5 +18,6 @@ import { OtherModule } from 'src/other/other.module';
   ],
   providers: [ProductsService],
   controllers: [ProductsController],
+  exports: [ProductsService],
 })
 export class ProductsModule {}

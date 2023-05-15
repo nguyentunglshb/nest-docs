@@ -67,6 +67,18 @@ export class Product {
     default: [],
   })
   tags: string[];
+
+  @Prop({
+    required: false,
+    default: 0,
+  })
+  views: 0;
+
+  @Prop({
+    required: false,
+    default: 0,
+  })
+  boughts: 0;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

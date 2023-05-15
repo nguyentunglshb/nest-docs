@@ -19,23 +19,6 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
-  @Get()
-  getAll() {
-    return this.productsService.getAll();
-  }
-
-  @Get(':_id')
-  findById(@Param('_id') _id: string) {
-    return this.productsService.getById(_id);
-  }
-
-  // @Post()
-  // create(@Body() createProductDto: CreateProductDto) {
-  //   console.log(createProductDto);
-
-  //   return this.productsService.create(createProductDto);
-  // }
-
   @Post()
   @UseInterceptors(
     FileFieldsInterceptor([
@@ -56,7 +39,28 @@ export class ProductsController {
     },
     @Body() createProductDto: CreateProductDto,
   ) {
-    return this.productsService.create(createProductDto, files);
+    return await this.productsService.create(createProductDto, files);
+  }
+
+  @Get()
+  getAll() {
+    return this.productsService.getAll();
+  }
+
+  @Get('search/:searchTerm')
+  findByKeyword(@Param('searchTerm') searchTerm: string) {
+    return this.productsService.getByKeyword(searchTerm);
+  }
+
+  @Get(':_id')
+  findById(@Param('_id') _id: string) {
+    return this.productsService.getById(_id);
+  }
+
+  @Post()
+  async create(@Body() createProductDto: CreateProductDto) {
+    console.log(createProductDto);
+    return 1;
   }
 
   @Delete(':_id')
