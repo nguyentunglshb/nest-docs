@@ -1,11 +1,12 @@
 import { CreateProductDto } from './dto/create-product.dto';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { Product, ProductDocument } from './schema/product.schema';
 import { OtherService } from 'src/other/other.service';
 import { EnumProductStatus } from './interface/product.interface';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Injectable()
 export class ProductsService {
@@ -26,6 +27,7 @@ export class ProductsService {
     return targetProduct;
   }
 
+  @UseGuards(JwtAuthGuard)
   async buyAndUpdate(_id: string) {
     const targetProduct = await this.productModel.findOne({ _id });
     targetProduct.boughts += 1;
@@ -50,6 +52,17 @@ export class ProductsService {
         },
       ],
     });
+  }
+
+  async getMostView(type: 'views' | 'boughts') {
+    return await this.productModel.aggregate([
+      {
+        $sort: { [type]: -1 },
+      },
+      {
+        $limit: 8,
+      },
+    ]);
   }
 
   async create(

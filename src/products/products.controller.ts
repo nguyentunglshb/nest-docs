@@ -6,6 +6,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
@@ -49,7 +50,13 @@ export class ProductsController {
 
   @Get('search/:searchTerm')
   findByKeyword(@Param('searchTerm') searchTerm: string) {
+    if (!searchTerm.trim()) return [];
     return this.productsService.getByKeyword(searchTerm);
+  }
+
+  @Get('most?')
+  getMostTheMostProduct(@Query('type') type: 'views' | 'boughts') {
+    return this.productsService.getMostView(type);
   }
 
   @Get(':_id')
