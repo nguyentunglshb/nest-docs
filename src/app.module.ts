@@ -22,6 +22,7 @@ import { ProductsModule } from './products/products.module';
 import { BlogsModule } from './blogs/blogs.module';
 import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
+import { WishlistModule } from './wishlist/wishlist.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { OrderModule } from './order/order.module';
     BlogsModule,
     CartModule,
     OrderModule,
+    WishlistModule,
   ],
   providers: [
     // {

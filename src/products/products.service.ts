@@ -19,6 +19,25 @@ export class ProductsService {
     return await this.productModel.find();
   }
 
+  async forCSV() {
+    return await this.productModel.aggregate([
+      {
+        $project: {
+          description: 0,
+          content: 0,
+          _id: 0,
+          imageUrls: 0,
+          headImageUrl: 0,
+          createdAt: 0,
+          name: 0,
+          tags: 0,
+          status: 0,
+          currency: 0,
+        },
+      },
+    ]);
+  }
+
   async getById(_id: string) {
     const targetProduct = await this.productModel.findOne({ _id });
     targetProduct.views += 1;

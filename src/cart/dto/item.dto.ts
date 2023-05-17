@@ -3,4 +3,5 @@ export class ItemDto {
   name: string;
   quantity: number;
   price: number;
+  headImageUrl: string;
 }

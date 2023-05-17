@@ -59,6 +59,11 @@ export class ProductsController {
     return this.productsService.getMostView(type);
   }
 
+  @Get('forCSV')
+  getForCSV() {
+    return this.productsService.forCSV();
+  }
+
   @Get(':_id')
   findById(@Param('_id') _id: string) {
     return this.productsService.getById(_id);
