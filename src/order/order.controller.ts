@@ -97,8 +97,6 @@ export class OrderController {
 
     let signData = querystring.stringify(vnp_Params, { encode: false });
 
-    console.log({ signData });
-
     let hmac = crypto.createHmac('sha512', secretKey);
     let signed = hmac.update(new Buffer(signData, 'utf-8')).digest('hex');
     vnp_Params['vnp_SecureHash'] = signed;

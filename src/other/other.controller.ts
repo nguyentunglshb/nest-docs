@@ -18,8 +18,10 @@ export class OtherController {
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
-    return { file };
-    // return this.otherService.uploadImageToCloudinary(file);
+    // console.log('file: ', file);
+
+    // return { file };
+    return this.otherService.uploadImageToCloudinary(file);
   }
 
   @Post('multiple')
