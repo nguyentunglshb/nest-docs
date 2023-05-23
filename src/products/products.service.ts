@@ -15,8 +15,11 @@ export class ProductsService {
     private otherService: OtherService,
   ) {}
 
-  async getAll() {
-    return await this.productModel.find();
+  async getAll(page: number, perPage: number) {
+    return await this.productModel
+      .find()
+      .skip(perPage * page - perPage)
+      .limit(perPage);
   }
 
   async forCSV() {

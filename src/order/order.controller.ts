@@ -49,8 +49,11 @@ export class OrderController {
   }
 
   @Post('create-payment')
-  // @UseGuards(JwtAuthGuard)
-  createPayment(@Request() req, @Body() createPaymentDto: CreatepaymentDto) {
+  @UseGuards(JwtAuthGuard)
+  async createPayment(
+    @Request() req,
+    @Body() createPaymentDto: CreatepaymentDto,
+  ) {
     const { amount, bankCode, language } = createPaymentDto;
 
     process.env.TZ = 'Asia/Ho_Chi_Minh';

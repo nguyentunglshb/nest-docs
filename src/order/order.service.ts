@@ -52,7 +52,27 @@ export class OrderService {
     return await newOrder.save();
   }
 
-  createPayment(redirectUrl: string) {
+  // async createPayment(
+  //   redirectUrl: string,
+  //   userId: string,
+  //   // createCheckoutDto: CreateCheckoutDto,
+  // ) {
+  //   console.log(2);
+
+  //   // await this.createNewCheckout(userId, createCheckoutDto);
+  //   return {
+  //     redirectUrl,
+  //   };
+  // }
+
+  async createPayment(
+    redirectUrl: string,
+    // userId: string,
+    // createCheckoutDto: CreateCheckoutDto,
+  ) {
+    // await this.createNewCheckout(userId, createCheckoutDto);
+    // // console.log(createCheckoutDto);
+
     return {
       redirectUrl,
     };

@@ -43,9 +43,12 @@ export class ProductsController {
     return await this.productsService.create(createProductDto, files);
   }
 
-  @Get()
-  getAll() {
-    return this.productsService.getAll();
+  @Get('?')
+  getAll(
+    @Query('page') page: number = 1,
+    @Query('perPage') perPage: number = 16,
+  ) {
+    return this.productsService.getAll(page, perPage);
   }
 
   @Get('search/:searchTerm')
