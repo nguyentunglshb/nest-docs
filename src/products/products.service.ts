@@ -72,6 +72,11 @@ export class ProductsService {
             $in: [searchTerm],
           },
         },
+        {
+          tags: {
+            $regex: `.*${searchTerm}.*`,
+          },
+        },
       ],
     });
   }
